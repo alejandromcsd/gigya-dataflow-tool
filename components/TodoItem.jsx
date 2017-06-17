@@ -1,3 +1,5 @@
+/*
+
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import TodoTextInput from './TodoTextInput';
@@ -80,3 +82,5 @@ TodoItem.propTypes = {
 };
 
 export default TodoItem;
+
+*/

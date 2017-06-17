@@ -1,25 +1,24 @@
+/*
+
 import React, { PropTypes, Component } from 'react';
 import classnames from 'classnames';
-import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
-import { RaisedButton, List, ListItem, Divider } from 'material-ui';
-
 import InboxIcon from 'material-ui/svg-icons/content/inbox';
 import LoopIcon from 'material-ui/svg-icons/av/loop';
 import ArchiveIcon from 'material-ui/svg-icons/content/archive';
-
+import { RaisedButton, List, ListItem, Divider } from 'material-ui';
+import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
 import palette from '../src/material_ui_raw_theme_file';
-
 
 const FILTER_TITLES = {
   [SHOW_ALL]: 'All',
   [SHOW_ACTIVE]: 'Active',
-  [SHOW_COMPLETED]: 'Completed'
+  [SHOW_COMPLETED]: 'Completed',
 };
 
 const FILTER_ICONS = {
   [SHOW_ALL]: <InboxIcon />,
   [SHOW_ACTIVE]: <LoopIcon />,
-  [SHOW_COMPLETED]: <ArchiveIcon />
+  [SHOW_COMPLETED]: <ArchiveIcon />,
 };
 
 class Footer extends Component {
@@ -28,6 +27,7 @@ class Footer extends Component {
     if (filter === SHOW_ALL) return activeCount + completedCount;
     if (filter === SHOW_ACTIVE) return activeCount;
     if (filter === SHOW_COMPLETED) return completedCount;
+    return null;
   }
 
   renderFilterLink(filter) {
@@ -36,7 +36,9 @@ class Footer extends Component {
     const active = filter === selectedFilter;
     const count = this.getCountForFilter(filter);
     return (
-      <ListItem key={filter} className={classnames({ selected: active })}
+      <ListItem
+        key={filter}
+        className={classnames({ selected: active })}
                 style={{color: active ? palette.primary1Color: palette.textColor}}
                 primaryText={title + (count > 0 ? ' (' +  count + ')' : '')}
                 leftIcon={FILTER_ICONS[filter]}
@@ -80,3 +82,5 @@ Footer.propTypes = {
 };
 
 export default Footer;
+
+*/

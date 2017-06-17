@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux';
-import todos from './todos';
+import repository from './repository';
+import menu from './menu';
+import notification from './notification';
 
 const rootReducer = combineReducers({
-    todos
+  repository,
+  menu,
+  notification,
 });
 
 export default rootReducer;

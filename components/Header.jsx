@@ -1,34 +1,60 @@
-import React, { PropTypes, Component } from 'react';
-import TodoTextInput from './TodoTextInput';
-
+import React from 'react';
+import PropTypes from 'prop-types';
+import FlatButton from 'material-ui/FlatButton';
 import AppBar from 'material-ui/AppBar';
+import Undo from 'material-ui/svg-icons/content/undo';
+import Redo from 'material-ui/svg-icons/content/redo';
+import FolderOpen from 'material-ui/svg-icons/file/folder-open';
+import { fullWhite } from 'material-ui/styles/colors';
 
-const defaultStyle = {
-  marginLeft: 20
+const buttonStyle = {
+  color: fullWhite,
 };
 
-class Header extends Component {
-  handleSave(text) {
-    if (text.length !== 0) {
-      this.props.addTodo(text);
+const Buttons = ({ showRepository, onShowRepository }) => (
+  <div>
+    {showRepository &&
+      <FlatButton
+        label="Repository"
+        labelStyle={buttonStyle}
+        icon={<FolderOpen color={fullWhite} />}
+        onTouchTap={onShowRepository}
+      />
     }
-  }
+    <FlatButton
+      label="Undo"
+      labelStyle={buttonStyle}
+      icon={<Undo color={fullWhite} />}
+    />
+    <FlatButton
+      label="Redo"
+      labelStyle={buttonStyle}
+      icon={<Redo color={fullWhite} />}
+    />
+  </div>
+);
 
-  render() {
-    return (
-      <header className="header">
-          <AppBar title="React + Redux + Material UI Boilerplate" />
-          <h1 style={defaultStyle} >todos</h1>
-          <TodoTextInput newTodo
-                         onSave={this.handleSave.bind(this)}
-                         placeholder="What needs to be done?" />
-      </header>
-    );
-  }
-}
+Buttons.propTypes = {
+  showRepository: PropTypes.bool.isRequired,
+  onShowRepository: PropTypes.func.isRequired,
+};
+
+const Header = ({ showRepository, onShowRepository }) => (
+  <header className="header">
+    <AppBar
+      title="Gigya Dataflow Tool"
+      showMenuIconButton={false}
+      iconElementRight={<Buttons
+        showRepository={showRepository}
+        onShowRepository={onShowRepository}
+      />}
+    />
+  </header>
+);
 
 Header.propTypes = {
-  addTodo: PropTypes.func.isRequired
+  showRepository: PropTypes.bool.isRequired,
+  onShowRepository: PropTypes.func.isRequired,
 };
 
 export default Header;

@@ -1,4 +1,4 @@
-import { fade } from 'material-ui/utils/colorManipulator'
+import { fade } from 'material-ui/utils/colorManipulator';
 import * as Colors from 'material-ui/styles/colors';
 import { spacing, getMuiTheme } from 'material-ui/styles';
 
@@ -6,8 +6,8 @@ const rawBaseTheme = {
   ...spacing,
   fontFamily: 'Roboto, sans-serif',
   palette: {
-    primary1Color: Colors.cyan500,
-    primary2Color: Colors.cyan700,
+    primary1Color: Colors.lightBlue900,
+    primary2Color: Colors.lightBlue700,
     primary3Color: Colors.lightBlack,
     accent1Color: Colors.pinkA200,
     accent2Color: Colors.grey100,
@@ -16,9 +16,9 @@ const rawBaseTheme = {
     alternateTextColor: Colors.white,
     canvasColor: Colors.white,
     borderColor: Colors.grey300,
-    disabledColor: fade(Colors.darkBlack, 0.3)
-  }
+    disabledColor: fade(Colors.darkBlack, 0.3),
+  },
 };
 
-//Theme must be wrapped in funciton getMuiTheme
+// Theme must be wrapped in funciton getMuiTheme
 export default getMuiTheme(rawBaseTheme);
