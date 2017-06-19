@@ -5,7 +5,9 @@ import { lightBlue700 } from 'material-ui/styles/colors';
 import Code from 'material-ui/svg-icons/action/code';
 import Scale from 'material-ui/svg-icons/editor/linear-scale';
 import RepositoryContainer from '../containers/RepositoryContainer';
+import EditorContainer from '../containers/EditorContainer';
 import SourceViewContainer from '../containers/SourceViewContainer';
+import FlowViewContainer from '../containers/FlowViewContainer';
 import TABS from '../constants/Tabs';
 
 const tabStyle = {
@@ -24,7 +26,7 @@ const MainSection = ({ activeTab, onShowFlow, onShowCode }) => (
         onActive={onShowFlow}
       >
         <div>
-          CONTENT HERE
+          <FlowViewContainer />
         </div>
       </Tab>
       <Tab
@@ -37,6 +39,7 @@ const MainSection = ({ activeTab, onShowFlow, onShowCode }) => (
         <SourceViewContainer />
       </Tab>
     </Tabs>
+    <EditorContainer />
   </section>
 );
 

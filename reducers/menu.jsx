@@ -3,8 +3,6 @@ import TABS from '../constants/Tabs';
 export const actionTypes = {
   SHOW_FLOW: 'SHOW_FLOW',
   SHOW_CODE: 'SHOW_CODE',
-  // SHOW_FLOW_COMPLETED: 'SHOW_FLOW_COMPLETED',
-  // SHOW_CODE_COMPLETED: 'SHOW_CODE_COMPLETED',
 };
 
 export const statePartition = {

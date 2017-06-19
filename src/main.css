@@ -8,6 +8,16 @@ body {
   margin: 0px;
 }
 
+h2 {
+  padding-left: 10px;
+}
+
+.noFlow {
+  text-align: center;
+  padding: 100px;
+  color: #555;
+}
+
 
 /* CODEMIRROR STYLE */
 
