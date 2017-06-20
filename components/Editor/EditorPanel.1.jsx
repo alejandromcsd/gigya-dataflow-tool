@@ -1,29 +1,40 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Drawer from 'material-ui/Drawer';
+import ObjectEditor from './ObjectEditor';
 import CUSTOM_PROPS from '../../constants/CustomProps';
-import DocEditor from './DocEditor';
-import { GetFreezer } from '../../lib/json';
+// import { ATTRIBUTE_TYPES } from '../../constants/Attributes';
 
-// eslint-disable-next-line
 class EditorPanel extends Component {
   constructor() {
     super();
     this.state = {
-      frozen: GetFreezer().get(),
+      secondLevelItem: null,
+      thirdLevelItem: null,
     };
   }
 
-  onTreeUpdate = (updatedFlow) => {
+  setSecondLevel = (item, attributeType) => {
     this.setState({
-      frozen: updatedFlow,
+      secondLevelItem: {
+        item,
+        attributeType,
+      },
     });
-  };
+  }
+
+  getEditor = (headerText, item, onSelect) =>
+    <ObjectEditor headerText item onSelect={onSelect} />;
+
+  renderLevel = (level) => {
+    const hasItem = level && level.item !== null;
+    return hasItem ? null : null;
+  }
 
   render() {
-    const { isOpen, activeStep, onRequestChange, flow } = this.props;
+    const { isOpen, activeStep, flow, onRequestChange } = this.props;
+    const { secondLevelItem } = this.state;
     const currentItem = flow.steps[activeStep];
-    const frozen = this.state.frozen;
 
     return activeStep !== null ?
       (<Drawer
@@ -33,14 +44,12 @@ class EditorPanel extends Component {
         onRequestChange={onRequestChange}
         openSecondary
       >
-        <h2>Attributes for {currentItem.id}</h2>
-        <div className="editorTreeView">
-          <DocEditor
-            store={frozen}
-            original={frozen}
-            onUpdate={this.onTreeUpdate}
-          />
-        </div>
+        <ObjectEditor
+          headerText={`Attributes for ${currentItem.id}`}
+          item={currentItem}
+          onSelect={this.setSecondLevel}
+        />
+        {this.renderLevel(secondLevelItem)}
       </Drawer>)
       : null;
   }

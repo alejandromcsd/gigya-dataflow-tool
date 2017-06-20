@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Drawer from 'material-ui/Drawer';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { List, ListItem } from 'material-ui/List';
-import ActionInfo from 'material-ui/svg-icons/action/info';
+import AddCircle from 'material-ui/svg-icons/content/add-circle';
+import LaptopMac from 'material-ui/svg-icons/hardware/laptop-mac';
 import IconButton from 'material-ui/IconButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import datasource from '../../repository/datasource';
-import DialogScrollable from './DialogScrollable';
-import MESSAGES from '../../constants/Messages';
 import GIGYA from '../../constants/Gigya';
 
 const styles = {
@@ -21,33 +21,18 @@ const styles = {
     fontSize: 12,
     height: 40,
   },
-  infoButton: {
+  addButton: {
     marginTop: -5,
+  },
+  helpButton: {
+    float: 'right',
+    marginTop: 7,
+    marginRight: 7,
   },
 };
 
 class RepositoryPanel extends Component {
-  constructor() {
-    super();
-    this.state = {
-      dialogTitle: '',
-      dialogOpen: false,
-    };
-  }
-
-  dialogBody = script => (
-    <div>
-      {script.description}
-      <p><a href={GIGYA.DEV_URL} target="_blank">{MESSAGES.SCRIPT_MORE}</a></p>
-    </div>);
-
-  showDialog = (script) => {
-    this.setState({
-      dialogTitle: `Description: ${script.id}`,
-      dialogContent: this.dialogBody(script),
-      dialogOpen: true,
-    });
-  };
+  showDialog = () => window.open(GIGYA.DEV_URL);
 
   renderItems = items => (
     <div className="itemsContainer" style={styles.items}>
@@ -59,12 +44,11 @@ class RepositoryPanel extends Component {
             onTouchTap={() => this.props.onAddScript(script.template)}
             rightIcon={
               <IconButton
-                tooltip="See more"
+                tooltip="Add to flow"
                 tooltipPosition="top-left"
-                style={styles.infoButton}
-                onTouchTap={() => this.showDialog(script)}
+                style={styles.addButton}
               >
-                <ActionInfo />
+                <AddCircle />
               </IconButton>
             }
             style={styles.item}
@@ -90,24 +74,24 @@ class RepositoryPanel extends Component {
 
   render() {
     const { open } = this.props;
-    const { dialogTitle, dialogContent, dialogOpen } = this.state;
 
     return (
       <Drawer
         open={open}
         width={styles.drawer.width}
       >
-        <h2>Script Repository</h2>
+        <RaisedButton
+          label="See docu"
+          icon={<LaptopMac />}
+          style={styles.helpButton}
+          onTouchTap={this.showDialog}
+          primary
+        />
+        <h2>Scripts</h2>
         {this.renderCard('Datasource', datasource)}
         {this.renderCard('Field', datasource)}
         {this.renderCard('File', datasource)}
         {this.renderCard('Record', datasource)}
-        <DialogScrollable
-          title={dialogTitle}
-          open={dialogOpen}
-        >
-          {dialogContent}
-        </DialogScrollable>
       </Drawer>
     );
   }

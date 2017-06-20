@@ -11,49 +11,47 @@ const buttonStyle = {
   color: fullWhite,
 };
 
-const Buttons = ({ showRepository, onShowRepository }) => (
-  <div>
-    {showRepository &&
+const Header = ({ showRepository, onShowRepository, isRepositoryOpen }) => {
+  const Buttons = () => (
+    <div>
+      {showRepository &&
+        <FlatButton
+          label={`${isRepositoryOpen ? 'Hide' : 'Show'} Repository`}
+          labelStyle={buttonStyle}
+          icon={<FolderOpen color={fullWhite} />}
+          onTouchTap={onShowRepository}
+        />
+      }
       <FlatButton
-        label="Repository"
+        label="Undo"
         labelStyle={buttonStyle}
-        icon={<FolderOpen color={fullWhite} />}
-        onTouchTap={onShowRepository}
+        icon={<Undo color={fullWhite} />}
       />
-    }
-    <FlatButton
-      label="Undo"
-      labelStyle={buttonStyle}
-      icon={<Undo color={fullWhite} />}
-    />
-    <FlatButton
-      label="Redo"
-      labelStyle={buttonStyle}
-      icon={<Redo color={fullWhite} />}
-    />
-  </div>
-);
+      <FlatButton
+        label="Redo"
+        labelStyle={buttonStyle}
+        icon={<Redo color={fullWhite} />}
+      />
+    </div>
+  );
 
-Buttons.propTypes = {
-  showRepository: PropTypes.bool.isRequired,
-  onShowRepository: PropTypes.func.isRequired,
+  return (
+    <header className="header">
+      <AppBar
+        title="Gigya Dataflow Tool"
+        showMenuIconButton={false}
+        iconElementRight={<Buttons
+          showRepository={showRepository}
+          onShowRepository={onShowRepository}
+        />}
+      />
+    </header>
+  );
 };
-
-const Header = ({ showRepository, onShowRepository }) => (
-  <header className="header">
-    <AppBar
-      title="Gigya Dataflow Tool"
-      showMenuIconButton={false}
-      iconElementRight={<Buttons
-        showRepository={showRepository}
-        onShowRepository={onShowRepository}
-      />}
-    />
-  </header>
-);
 
 Header.propTypes = {
   showRepository: PropTypes.bool.isRequired,
+  isRepositoryOpen: PropTypes.bool.isRequired,
   onShowRepository: PropTypes.func.isRequired,
 };
 
