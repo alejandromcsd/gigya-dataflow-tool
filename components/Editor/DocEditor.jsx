@@ -3,6 +3,16 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 
+const styles = {
+  button: {
+    height: 20,
+    lineHeight: 'inherit',
+  },
+  buttonLabel: {
+    fontSize: 10
+  },
+};
+
 /****************
 THIS COMPONENT IS PENDING FOR REFACTORING - USING THREEVIEW EDITOR FROM:
 http://arqex.com/991/json-editor-react-immutable-data
@@ -78,7 +88,11 @@ var DocEditor = React.createClass({
     var store = this.props.store;
     return (
       <div className="docEditor">
-        <ObjectAttribute value={this.props.store.json} original={this.props.original.json} />
+        <ObjectAttribute
+          value={this.props.store.json}
+          original={this.props.original.json}
+          expanded={this.props.expanded}
+        />
       </div>
     );
   },
@@ -106,14 +120,13 @@ var DocEditor = React.createClass({
  */
 var Attribute = React.createClass({
   render: function () {
-    var typeAttribute = createAttribute(this.props.value, this.props.original, this.props.parent, this.props.attrkey),
-      modifiedClass = this.props.value == this.props.original ? '' : ' modified',
-      className = 'hashAttribute' + modifiedClass
-      ;
+    let typeAttribute = createAttribute(this.props.value, this.props.original, this.props.parent, this.props.attrkey);
+    let modifiedClass = this.props.value == this.props.original ? '' : ' modified';
+    let className = 'hashAttribute' + modifiedClass;
 
     return (
       <div className={className}>
-        <a href="#" className="attrRemove" onClick={this.handleRemove}>[x]</a>
+        <a href="#" className="attrRemove" onClick={this.handleRemove}>⌫</a>
         <span className="attrName">{this.props.attrkey}:</span>
         <span className="attrValue">{typeAttribute}</span>
       </div>
@@ -142,14 +155,13 @@ var Attribute = React.createClass({
  */
 var ObjectAttribute = React.createClass({
   getInitialState: function () {
-    return { editing: false };
+    return { editing: !!this.props.expanded };
   },
 
   render: function () {
-    var keys = Object.keys(this.props.value),
-      className = this.state.editing ? 'open objectAttr compoundAttr' : 'objectAttr compoundAttr',
-      openHash = ''
-      ;
+    let keys = Object.keys(this.props.value);
+    let className = this.state.editing ? 'open objectAttr compoundAttr' : 'objectAttr compoundAttr';
+    let openHash = '';
 
     var attrs = [];
     for (var attr in this.props.value) {
@@ -170,7 +182,14 @@ var ObjectAttribute = React.createClass({
     </div>);
 
     return (<span className={className}>
-      <span onClick={this.toggleEditing} className="hashToggle">Object [{keys.length}]</span>
+      <span className="hashToggle"></span>
+      <FlatButton
+        style={styles.button}
+        labelStyle={styles.buttonLabel}
+        label={`Object (${keys.length} keys)`}
+        onTouchTap={this.toggleEditing}
+      />
+      {/*<span onClick={this.toggleEditing} className="hashToggle">Object [{keys.length}]</span>*/}
       {openHash}
     </span>);
   },
@@ -216,10 +235,15 @@ var ArrayAttribute = React.createClass({
     );
 
     return (<span className={className}>
-      <span onClick={this.toggleEditing} className="hashToggle">Array [{keys.length}]</span>
+      <span className="hashToggle"></span>
+      <FlatButton
+        style={styles.button}
+        labelStyle={styles.buttonLabel}
+        label={`Array (${keys.length} elements)`}
+        onTouchTap={this.toggleEditing}
+      />
       {openArray}
-    </span>)
-      ;
+    </span>);
   },
   toggleEditing: function () {
     this.setState({ editing: !this.state.editing });

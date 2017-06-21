@@ -25,55 +25,56 @@ h2 {
   margin-left: 20px;
 }
 
-.docEditor>.objectAttr {
+.editorTreeView .docEditor>.objectAttr {
   float: left;
 }
 
-.modified {
+.editorTreeView .modified {
   font-weight: bold;
 }
 
-.attrChildren {
+.editorTreeView .attrChildren {
   margin-left: 20px;
   display: none;
   font-weight: normal;
   border-left: 1px dotted #ddd;
 }
 
-.compoundAttr.open>.attrChildren {
+.editorTreeView .compoundAttr.open>.attrChildren {
   display: block;
 }
 
-.hashToggle:before {
+.editorTreeView .hashToggle:before {
   content: '▸';
   color: #333;
   line-height: 1em;
   margin-right: 3px;
 }
 
-.open>.hashToggle:before {
+.editorTreeView .open>.hashToggle:before {
   content: '▾';
 }
 
-.attrName {
-  font-style: italic;
+.editorTreeView .attrName {
+  font-weight: bold;
 }
 
-.attrValue {
+.editorTreeView .attrValue {
   margin-left: 5px;
 }
 
-.attrRemove {
+.editorTreeView .attrRemove {
   visibility: hidden;
   margin-right: 5px;
   text-decoration: none;
+  color: black;
 }
 
-.hashAttribute:hover>.attrRemove {
+.editorTreeView .hashAttribute:hover>.attrRemove {
   visibility: visible;
 }
 
-pre {
+.editorTreeView pre {
   background: #eee;
   border: 1px solid #ddd;
   padding: 5px;
@@ -82,8 +83,8 @@ pre {
   margin: 0 10px 0 0;
 }
 
-.hashToggle,
-.stringAttr {
+.editorTreeView .hashToggle,
+.editorTreeView .stringAttr {
   cursor: pointer;
 }
 

@@ -39,6 +39,7 @@ class EditorPanel extends Component {
             store={frozen}
             original={frozen}
             onUpdate={this.onTreeUpdate}
+            expanded
           />
         </div>
       </Drawer>)
