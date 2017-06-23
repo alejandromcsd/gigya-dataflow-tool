@@ -13,9 +13,14 @@ h2 {
 }
 
 .noFlow {
-  text-align: center;
-  padding: 100px;
   color: #555;
+  margin: auto;
+  width: 400px;
+  margin-top: 60px;
+}
+
+.noFlow ol {
+  margin-bottom: -10px;
 }
 
 
@@ -30,7 +35,7 @@ h2 {
 }
 
 .editorTreeView .modified {
-  font-weight: bold;
+  /*  font-weight: bold;*/
 }
 
 .editorTreeView .attrChildren {

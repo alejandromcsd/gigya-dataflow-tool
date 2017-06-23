@@ -1,17 +1,5 @@
 /* eslint quote-props: 0 */
 const datasource = [{
-  id: 'datasource.lookup.gender',
-  description: 'This script is used to guess the gender of a user in a third-party platform, based on the first name field in Gigya\'s platform. It returns the guessed gender and the probability for guessing correctly. The script may be used, for example, when running a targeted gender-specific campaign, to send emails only to those users who have are estimated with high certainty to belong to that gender.',
-  template: {
-    'id': 'genderGuess',
-    'type': 'datasource.lookup.gender',
-    'params': {
-      'targetField': 'data.guessedGender',
-      'firstNameField': 'profile.firstName',
-    },
-  },
-},
-{
   id: 'datasource.lookup.gigya.gm',
   description: 'If you have implemented the Loyalty platform, use this script to retrieve the current status of a user in each of the specified challenges since the last successful execution of the dataflow. The script makes use of the gm.getChallengeStatus REST API.',
   template: {

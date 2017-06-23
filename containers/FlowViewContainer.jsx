@@ -12,6 +12,7 @@ import { setActiveStep } from '../actions/dataflow';
 import toggleEditor from '../actions/editor';
 import TABS from '../constants/Tabs';
 import CUSTOM_PROPS from '../constants/CustomProps';
+import NewProject from '../components/NewProject';
 
 const styles = {
   container: {
@@ -35,11 +36,7 @@ class FlowViewContainer extends Component {
   render() {
     const { flow, activeStep, setStepIndex } = this.props;
     if (!flow.steps.length) {
-      return (<div className="noFlow">
-        <h3>
-          Hello :) Start by adding steps from the repository or editing the source view
-        </h3>
-      </div>);
+      return <NewProject />;
     }
 
     return (

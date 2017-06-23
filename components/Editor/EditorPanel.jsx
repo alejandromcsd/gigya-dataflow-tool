@@ -5,27 +5,49 @@ import CUSTOM_PROPS from '../../constants/CustomProps';
 import DocEditor from './DocEditor';
 import { GetFreezer } from '../../lib/json';
 
-// eslint-disable-next-line
 class EditorPanel extends Component {
   constructor() {
     super();
+    this.stepInit = null;
+
     this.state = {
-      frozen: GetFreezer().get(),
+      frozen: null,
     };
   }
 
-  onTreeUpdate = (updatedFlow) => {
+  componentWillReceiveProps(nextProps) {
+    const { activeStep, flow } = nextProps;
+    if (activeStep === null) return;
+
+    const currentStep = flow.steps[activeStep];
+    if ((!this.stepInit || this.stepInit.id !== currentStep.id)) {
+      this.stepInit = currentStep;
+      this.setState({
+        frozen: GetFreezer(this.stepInit).get(),
+      });
+    }
+  }
+
+  onTreeUpdate = (updatedFlow, activeStep) => {
+    // TODO: Ideally we don't use local state here, but redux
+    // However we should refactor DocEditor before doing this.
+    this.stepInit = updatedFlow.json;
     this.setState({
       frozen: updatedFlow,
     });
+    this.props.onUpdateStep(updatedFlow.json, activeStep);
   };
 
   render() {
     const { isOpen, activeStep, onRequestChange, flow } = this.props;
     const currentItem = flow.steps[activeStep];
-    const frozen = this.state.frozen;
+    let frozen = this.state.frozen;
 
-    return activeStep !== null ?
+    if (!frozen && currentItem) {
+      frozen = GetFreezer(currentItem).get();
+    }
+
+    return activeStep !== null && frozen ?
       (<Drawer
         width={400}
         open={isOpen}
@@ -38,7 +60,7 @@ class EditorPanel extends Component {
           <DocEditor
             store={frozen}
             original={frozen}
-            onUpdate={this.onTreeUpdate}
+            onUpdate={updatedFlow => this.onTreeUpdate(updatedFlow, activeStep)}
             expanded
           />
         </div>
@@ -50,6 +72,7 @@ class EditorPanel extends Component {
 EditorPanel.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onRequestChange: PropTypes.func.isRequired,
+  onUpdateStep: PropTypes.func.isRequired,
   activeStep: PropTypes.number,
   flow: CUSTOM_PROPS.FLOW.isRequired,
 };

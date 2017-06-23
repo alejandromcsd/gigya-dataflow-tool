@@ -2,6 +2,8 @@
 
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import Add from 'material-ui/svg-icons/content/add';
 
 const styles = {
   button: {
@@ -10,6 +12,10 @@ const styles = {
   },
   buttonLabel: {
     fontSize: 10
+  },
+  icon: {
+    width: 16,
+    height: 16,
   },
 };
 
@@ -210,10 +216,9 @@ var ArrayAttribute = React.createClass({
   },
 
   render: function () {
-    var keys = Object.keys(this.props.value),
-      className = this.state.editing ? 'open arrayAttr compoundAttr' : 'arrayAttr compoundAttr',
-      openArray = ''
-      ;
+    let keys = Object.keys(this.props.value);
+    let className = this.state.editing ? 'open arrayAttr compoundAttr' : 'arrayAttr compoundAttr';
+    let openArray = '';
 
     var attrs = [];
     for (var i = 0; i < this.props.value.length; i++) {
@@ -332,8 +337,20 @@ var AttributeCreator = React.createClass({
   },
 
   render: function () {
-    if (!this.state.creating)
-      return <a href="#" onClick={this.handleCreate}>+ Add {this.props.type}</a>;
+    if (!this.state.creating) {
+      return (<RaisedButton
+        style={styles.button}
+        labelStyle={styles.buttonLabel}
+        label={`Add ${this.props.type}`}
+        onTouchTap={this.handleCreate}
+        icon={<Add style={styles.icon} />}
+        secondary
+      />);
+
+      /*
+      <a href="#" onClick={this.handleCreate}>+ Add {this.props.type}</a>
+      */
+    }
 
     var attrName;
     if (typeof this.props.attrkey != 'undefined') {
@@ -350,8 +367,8 @@ var AttributeCreator = React.createClass({
       {attrName}
       <select value={this.state.type} onChange={this.changeType} ref={input => this.typeSelector = input}>
         <option value="string">String</option>
-        <option value="array">List</option>
-        <option value="object">Map</option>
+        <option value="array">Array</option>
+        <option value="object">Object</option>
       </select>
       <button onClick={this.createAttribute}>OK</button>, <a href="#" className="cancelAttr" onClick={this.handleCancel}>Cancel</a>
     </div>);

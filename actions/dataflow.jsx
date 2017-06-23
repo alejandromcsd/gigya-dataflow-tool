@@ -4,6 +4,10 @@ export function update(objectDataflow) {
   return { type: actionTypes.UPDATE, objectDataflow };
 }
 
+export function updateStep(updatedStep, stepIndex) {
+  return { type: actionTypes.UPDATE_STEP, payload: { updatedStep, stepIndex } };
+}
+
 export function setActiveStep(index) {
   return { type: actionTypes.SET_ACTIVE_STEP, index };
 }

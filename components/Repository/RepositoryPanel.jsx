@@ -81,7 +81,7 @@ class RepositoryPanel extends Component {
         width={styles.drawer.width}
       >
         <RaisedButton
-          label="See docu"
+          label="Documentation"
           icon={<LaptopMac />}
           style={styles.helpButton}
           onTouchTap={this.showDialog}
