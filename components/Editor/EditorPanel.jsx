@@ -49,7 +49,7 @@ class EditorPanel extends Component {
 
     return activeStep !== null && frozen ?
       (<Drawer
-        width={400}
+        width={600}
         open={isOpen}
         docked={false}
         onRequestChange={onRequestChange}

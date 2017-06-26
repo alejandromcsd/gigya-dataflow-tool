@@ -3,19 +3,32 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import SelectField from 'material-ui/SelectField';
+import TextField from 'material-ui/TextField';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
 import Add from 'material-ui/svg-icons/content/add';
+import AddCircle from 'material-ui/svg-icons/content/add-circle';
+import Cancel from 'material-ui/svg-icons/navigation/cancel';
+import { greenA400, red500 } from 'material-ui/styles/colors';
 
 const styles = {
   button: {
     height: 20,
     lineHeight: 'inherit',
   },
-  buttonLabel: {
+  itemLabel: {
     fontSize: 10
   },
   icon: {
     width: 16,
     height: 16,
+  },
+  selectField: {
+    width: 100,
+  },
+  textField: {
+    width: 100,
   },
 };
 
@@ -45,9 +58,15 @@ var guessType = function (value) {
 // Default values to initialize attributes
 var typeDefaultValues = {
   string: '',
+  number: 0,
+  bool: true,
   object: {},
-  array: []
-}
+  array: [],
+  fields: {
+    sourceField: '',
+    targetField: '',
+  },
+};
 
 /**
  * Creates an specific attribute component depending on
@@ -191,7 +210,7 @@ var ObjectAttribute = React.createClass({
       <span className="hashToggle"></span>
       <FlatButton
         style={styles.button}
-        labelStyle={styles.buttonLabel}
+        labelStyle={styles.itemLabel}
         label={`Object (${keys.length} keys)`}
         onTouchTap={this.toggleEditing}
       />
@@ -243,7 +262,7 @@ var ArrayAttribute = React.createClass({
       <span className="hashToggle"></span>
       <FlatButton
         style={styles.button}
-        labelStyle={styles.buttonLabel}
+        labelStyle={styles.itemLabel}
         label={`Array (${keys.length} elements)`}
         onTouchTap={this.toggleEditing}
       />
@@ -340,7 +359,7 @@ var AttributeCreator = React.createClass({
     if (!this.state.creating) {
       return (<RaisedButton
         style={styles.button}
-        labelStyle={styles.buttonLabel}
+        labelStyle={styles.itemLabel}
         label={`Add ${this.props.type}`}
         onTouchTap={this.handleCreate}
         icon={<Add style={styles.icon} />}
@@ -358,19 +377,56 @@ var AttributeCreator = React.createClass({
     }
     else {
       attrName = [
-        <input key='newAttInput' ref={input => this.keyInput = input} type="text" value={this.state.value} onChange={this.changeKey} />,
+        <TextField
+          id='newAttInput'
+          key='newAttInput'
+          ref={input => this.keyInput = input}
+          value={this.state.value}
+          onChange={this.changeKey}
+          style={styles.textField}
+        />,
+        // <input key='newAttInput' ref={input => this.keyInput = input} type="text" value={this.state.value} onChange={this.changeKey} />,
         <span key='newAttrSpan'>:</span>
       ];
     }
 
     return (<div className="hashAttribute">
-      {attrName}
+      <div className="attr-field attr-name">
+        {attrName}
+      </div>
+      { /*
       <select value={this.state.type} onChange={this.changeType} ref={input => this.typeSelector = input}>
         <option value="string">String</option>
         <option value="array">Array</option>
         <option value="object">Object</option>
       </select>
-      <button onClick={this.createAttribute}>OK</button>, <a href="#" className="cancelAttr" onClick={this.handleCancel}>Cancel</a>
+      */ }
+      <div className="attr-field attr-type">
+        <SelectField
+          value={this.state.type}
+          onChange={this.changeType}
+          ref={input => this.typeSelector = input}
+          style={styles.selectField}
+        >
+          <MenuItem value="string" primaryText="String" />
+          <MenuItem value="number" primaryText="Number" />
+          <MenuItem value="bool" primaryText="Boolean" />
+          <MenuItem value="array" primaryText="Array" />
+          <MenuItem value="object" primaryText="Object" />
+          <MenuItem value="fields" primaryText="Fields" />
+        </SelectField>
+      </div>
+      <div className="attr-field attr-actions">
+        <IconButton tooltip="Add" onTouchTap={this.createAttribute}>
+          <AddCircle />
+        </IconButton>
+        <IconButton tooltip="Cancel" onTouchTap={this.handleCancel}>
+          <Cancel />
+        </IconButton>
+        {/*
+        <button onClick={this.createAttribute}>OK</button>, <a href="#" className="cancelAttr" onClick={this.handleCancel}>Cancel</a>
+        */}
+      </div>
     </div>);
   },
 
@@ -378,8 +434,8 @@ var AttributeCreator = React.createClass({
     if (!prevState.creating && this.state.creating) {
       if (this.keyInput)
         this.keyInput.focus();
-      else
-        this.typeSelector.focus();
+      // else
+      //   this.typeSelector.focus();
     }
   },
 
@@ -397,8 +453,8 @@ var AttributeCreator = React.createClass({
     this.setState({ creating: false });
   },
 
-  changeType: function (e) {
-    this.setState({ type: e.target.value });
+  changeType: function (event, index, value) {
+    this.setState({ type: value });
   },
 
   changeKey: function (e) {
