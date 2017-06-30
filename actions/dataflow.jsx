@@ -8,6 +8,10 @@ export function updateStep(updatedStep, stepIndex) {
   return { type: actionTypes.UPDATE_STEP, payload: { updatedStep, stepIndex } };
 }
 
+export function deleteActiveStep() {
+  return { type: actionTypes.DELETE_ACTIVE_STEP };
+}
+
 export function setActiveStep(index) {
   return { type: actionTypes.SET_ACTIVE_STEP, index };
 }

@@ -117,6 +117,7 @@ var DocEditor = React.createClass({
           value={this.props.store.json}
           original={this.props.original.json}
           expanded={this.props.expanded}
+          hideStep
         />
       </div>
     );
@@ -190,15 +191,18 @@ var ObjectAttribute = React.createClass({
 
     var attrs = [];
     for (var attr in this.props.value) {
-      attrs.push(
-        <Attribute
-          parent={this.props.value}
-          value={this.props.value[attr]}
-          original={this.props.original[attr]}
-          key={attr}
-          attrkey={attr}
-        />
-      );
+      const skipAttribute = attr === "next" && this.props.hideStep;
+      if (!skipAttribute) {
+        attrs.push(
+          <Attribute
+            parent={this.props.value}
+            value={this.props.value[attr]}
+            original={this.props.original[attr]}
+            key={attr}
+            attrkey={attr}
+          />
+        );
+      }
     }
 
     openHash = (<div className="attrChildren">

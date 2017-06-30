@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "clipboard": "^1.7.1",
     "codemirror": "^5.26.0",
     "fbjs": "^0.8.5",
     "material-ui": "^0.16.0",

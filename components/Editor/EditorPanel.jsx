@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Drawer from 'material-ui/Drawer';
+import RaisedButton from 'material-ui/RaisedButton';
+import CodeIcon from 'material-ui/svg-icons/device/dvr';
 import CUSTOM_PROPS from '../../constants/CustomProps';
 import DocEditor from './DocEditor';
 import { GetFreezer } from '../../lib/json';
+
+const styles = {
+  scriptContainer: {
+    padding: '8px 0 15px 8px',
+  },
+  scriptButton: {
+    marginLeft: 10,
+  },
+};
 
 class EditorPanel extends Component {
   constructor() {
@@ -29,7 +39,7 @@ class EditorPanel extends Component {
   }
 
   onTreeUpdate = (updatedFlow, activeStep) => {
-    // TODO: Ideally we don't use local state here, but redux
+    // TODO: Ideally we don't use local state here, instead redux
     // However we should refactor DocEditor before doing this.
     this.stepInit = updatedFlow.json;
     this.setState({
@@ -38,8 +48,11 @@ class EditorPanel extends Component {
     this.props.onUpdateStep(updatedFlow.json, activeStep);
   };
 
+  isScriptStep = currentItem => currentItem.type === 'record.evaluate'
+    && currentItem.params;
+
   render() {
-    const { isOpen, activeStep, onRequestChange, flow } = this.props;
+    const { activeStep, flow } = this.props;
     const currentItem = flow.steps[activeStep];
     let frozen = this.state.frozen;
 
@@ -47,14 +60,22 @@ class EditorPanel extends Component {
       frozen = GetFreezer(currentItem).get();
     }
 
+    const scriptEditor = this.isScriptStep(currentItem) && (
+      <div style={styles.scriptContainer}>
+        <h2>Custom Script</h2>
+        <RaisedButton
+          style={styles.scriptButton}
+          label="Edit custom script"
+          onTouchTap={this.handleCreate}
+          icon={<CodeIcon />}
+          primary
+        />
+      </div>
+    );
+
     return activeStep !== null && frozen ?
-      (<Drawer
-        width={600}
-        open={isOpen}
-        docked={false}
-        onRequestChange={onRequestChange}
-        openSecondary
-      >
+      (<div>
+        {scriptEditor}
         <h2>Attributes for {currentItem.id}</h2>
         <div className="editorTreeView">
           <DocEditor
@@ -64,14 +85,12 @@ class EditorPanel extends Component {
             expanded
           />
         </div>
-      </Drawer>)
+      </div>)
       : null;
   }
 }
 
 EditorPanel.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onRequestChange: PropTypes.func.isRequired,
   onUpdateStep: PropTypes.func.isRequired,
   activeStep: PropTypes.number,
   flow: CUSTOM_PROPS.FLOW.isRequired,

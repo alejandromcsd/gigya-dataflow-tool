@@ -8,6 +8,9 @@ import LaptopMac from 'material-ui/svg-icons/hardware/laptop-mac';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import datasource from '../../repository/datasource';
+import field from '../../repository/field';
+import file from '../../repository/file';
+import record from '../../repository/record';
 import GIGYA from '../../constants/Gigya';
 
 const styles = {
@@ -89,9 +92,9 @@ class RepositoryPanel extends Component {
         />
         <h2>Scripts</h2>
         {this.renderCard('Datasource', datasource)}
-        {this.renderCard('Field', datasource)}
-        {this.renderCard('File', datasource)}
-        {this.renderCard('Record', datasource)}
+        {this.renderCard('Field', field)}
+        {this.renderCard('File', file)}
+        {this.renderCard('Record', record)}
       </Drawer>
     );
   }

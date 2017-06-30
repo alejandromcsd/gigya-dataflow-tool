@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import AppBar from 'material-ui/AppBar';
-import Undo from 'material-ui/svg-icons/content/undo';
-import Redo from 'material-ui/svg-icons/content/redo';
+import Copy from 'material-ui/svg-icons/content/content-copy';
 import FolderOpen from 'material-ui/svg-icons/file/folder-open';
 import { fullWhite } from 'material-ui/styles/colors';
 
@@ -23,14 +22,10 @@ const Header = ({ showRepository, onShowRepository, isRepositoryOpen }) => {
         />
       }
       <FlatButton
-        label="Undo"
+        className="copyToClipboard"
+        label="Copy to clipboard"
         labelStyle={buttonStyle}
-        icon={<Undo color={fullWhite} />}
-      />
-      <FlatButton
-        label="Redo"
-        labelStyle={buttonStyle}
-        icon={<Redo color={fullWhite} />}
+        icon={<Copy color={fullWhite} />}
       />
     </div>
   );
