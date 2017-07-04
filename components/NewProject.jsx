@@ -25,9 +25,10 @@ class NewProject extends Component {
           <li>Importing one of Gigya&apos;s Dataflow Templates:</li>
         </ol>
         <SelectField
-          floatingLabelText="Select a dataflow template"
+          floatingLabelText="Scroll / select a template"
           onChange={this.handleChange}
           style={styles.select}
+          maxHeight={200}
           autoWidth
         >
           {

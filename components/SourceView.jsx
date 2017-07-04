@@ -14,6 +14,10 @@ class SourceView extends Component {
     this.state = {
       code: null,
     };
+    this.options = {
+      lineNumbers: true,
+      mode: { name: 'javascript', json: true },
+    };
   }
 
   componentDidMount() {
@@ -77,15 +81,10 @@ class SourceView extends Component {
     const { code } = this.state;
     if (!this.props.show) return null;
 
-    const options = {
-      lineNumbers: true,
-      mode: { name: 'javascript', json: true },
-    };
-
     return (<CodeMirror
       value={code}
       onChange={this.updateCode}
-      options={options}
+      options={this.options}
     />);
   }
 }

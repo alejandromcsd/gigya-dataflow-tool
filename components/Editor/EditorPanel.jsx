@@ -5,6 +5,7 @@ import CodeIcon from 'material-ui/svg-icons/device/dvr';
 import CUSTOM_PROPS from '../../constants/CustomProps';
 import DocEditor from './DocEditor';
 import { GetFreezer } from '../../lib/json';
+import ScriptEditor from './ScriptEditor';
 
 const styles = {
   scriptContainer: {
@@ -52,7 +53,7 @@ class EditorPanel extends Component {
     && currentItem.params;
 
   render() {
-    const { activeStep, flow } = this.props;
+    const { activeStep, flow, isScriptOpen, onToogleScript } = this.props;
     const currentItem = flow.steps[activeStep];
     let frozen = this.state.frozen;
 
@@ -66,7 +67,7 @@ class EditorPanel extends Component {
         <RaisedButton
           style={styles.scriptButton}
           label="Edit custom script"
-          onTouchTap={this.handleCreate}
+          onTouchTap={onToogleScript}
           icon={<CodeIcon />}
           primary
         />
@@ -85,13 +86,19 @@ class EditorPanel extends Component {
             expanded
           />
         </div>
+        <ScriptEditor
+          isOpen={isScriptOpen}
+          onToogle={onToogleScript}
+        />
       </div>)
       : null;
   }
 }
 
 EditorPanel.propTypes = {
+  isScriptOpen: PropTypes.bool.isRequired,
   onUpdateStep: PropTypes.func.isRequired,
+  onToogleScript: PropTypes.func.isRequired,
   activeStep: PropTypes.number,
   flow: CUSTOM_PROPS.FLOW.isRequired,
 };

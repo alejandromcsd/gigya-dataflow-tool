@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 export const inbound = {
-  "name": "Campaign monitor - inbound",
+  "name": "Campaign Monitor - Inbound",
   "description": "Campaign monitor > rename > evaluate > account",
   "steps": [{
       "id": "campaignmonitor",
@@ -60,7 +60,7 @@ export const inbound = {
 };
 
 export const outbound = {
-  "name": "Campaign Monitor - outbound",
+  "name": "Campaign Monitor - Outbound",
   "description": "account > rename > remove > campaignmonitor",
   "steps": [{
       "id": "account",

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { statePartition as menuPartition } from '../reducers/menu';
 import { statePartition as dataflowPartition } from '../reducers/dataflow';
 import { setActiveStep, deleteActiveStep } from '../actions/dataflow';
-import toggleEditor from '../actions/editor';
+import { toggleEditor } from '../actions/editor';
 import FlowView from '../components/FlowView';
 
 function mapStateToProps(state) {

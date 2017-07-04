@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import EditorPanel from '../components/Editor/EditorPanel';
 import { statePartition as editorPartition } from '../reducers/editor';
 import { statePartition as dataflowPartition } from '../reducers/dataflow';
-import toggleEditor from '../actions/editor';
+import { toggleEditor, toggleScriptEditor } from '../actions/editor';
 import { updateStep } from '../actions/dataflow';
 
 const EditorContainer = props => (
@@ -27,6 +27,7 @@ EditorContainer.propTypes = {
 function mapStateToProps(state) {
   return {
     isOpen: state[editorPartition.partition][editorPartition.isOpen],
+    isScriptOpen: state[editorPartition.partition][editorPartition.isScriptOpen],
     activeStep: state[dataflowPartition.partition][dataflowPartition.activeStep],
     flow: state[dataflowPartition.partition][dataflowPartition.objectDataflow],
   };
@@ -36,6 +37,7 @@ function mapDispatchToProps(dispatch) {
   return {
     onRequestChange: isOpen => dispatch(toggleEditor(null, isOpen)),
     onUpdateStep: (updatedStep, stepIndex) => dispatch(updateStep(updatedStep, stepIndex)),
+    onToogleScript: () => dispatch(toggleScriptEditor()),
   };
 }
 

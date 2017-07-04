@@ -59,7 +59,7 @@ var guessType = function (value) {
 var typeDefaultValues = {
   string: '',
   number: 0,
-  bool: true,
+  boolean: true,
   object: {},
   array: [],
   fields: {
@@ -88,6 +88,9 @@ var createAttribute = function (value, original, parent, key) {
 
   if (typeof original == 'undefined')
     original = typeDefaultValues[type];
+
+  if (typeof value === 'boolean')
+    value = value.toString();
 
   return React.createElement(className, {
     value: value,
@@ -301,7 +304,7 @@ var StringAttribute = React.createClass({
     if (!this.state.editing)
       return <span onClick={this.setEditMode} className={className}>{this.props.value}</span>;
 
-    return <input value={this.state.value} onChange={this.updateValue} onBlur={this.setValue} ref={input => this.input = input} onKeyDown={this.handleKeyDown} />;
+    return <input className="attrInputValue" value={this.state.value} onChange={this.updateValue} onBlur={this.setValue} ref={input => this.input = input} onKeyDown={this.handleKeyDown} />;
   },
 
   componentDidUpdate: function (prevProps, prevState) {
@@ -325,8 +328,18 @@ var StringAttribute = React.createClass({
   },
 
   setValue: function () {
-    if (this.state.modified)
-      this.props.parent.set(this.props.attrkey, this.state.value);
+    if (this.state.modified) {
+      let val = this.state.value;
+      if (val === 'true') {
+        val = true;
+      } else if (val === 'false') {
+        val = false;
+      } else if (val && !isNaN(val)) {
+        val = Number(val);
+      }
+
+      this.props.parent.set(this.props.attrkey, val);
+    }
 
     this.setState({ editing: false });
   },
@@ -414,7 +427,7 @@ var AttributeCreator = React.createClass({
         >
           <MenuItem value="string" primaryText="String" />
           <MenuItem value="number" primaryText="Number" />
-          <MenuItem value="bool" primaryText="Boolean" />
+          <MenuItem value="boolean" primaryText="Boolean" />
           <MenuItem value="array" primaryText="Array" />
           <MenuItem value="object" primaryText="Object" />
           <MenuItem value="fields" primaryText="Fields" />

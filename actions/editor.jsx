@@ -1,6 +1,6 @@
 import { actionTypes } from '../reducers/editor';
 
-export default function toggleEditor(index, forcedStatus) {
+export function toggleEditor(index, forcedStatus) {
   return {
     type: actionTypes.TOGGLE_EDITOR,
     payload: {
@@ -8,4 +8,8 @@ export default function toggleEditor(index, forcedStatus) {
       forcedStatus,
     },
   };
+}
+
+export function toggleScriptEditor() {
+  return { type: actionTypes.TOGGLE_SCRIPT_EDITOR };
 }

@@ -64,6 +64,10 @@ h2 {
   margin-left: 5px;
 }
 
+.editorTreeView .attrInputValue {
+  width: 250px;
+}
+
 .editorTreeView .attrRemove {
   visibility: hidden;
   margin-right: 5px;
