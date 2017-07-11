@@ -120,7 +120,6 @@ var DocEditor = React.createClass({
           value={this.props.store.json}
           original={this.props.original.json}
           expanded={this.props.expanded}
-          hideStep
         />
       </div>
     );
@@ -194,18 +193,15 @@ var ObjectAttribute = React.createClass({
 
     var attrs = [];
     for (var attr in this.props.value) {
-      const skipAttribute = attr === "next" && this.props.hideStep;
-      if (!skipAttribute) {
-        attrs.push(
-          <Attribute
-            parent={this.props.value}
-            value={this.props.value[attr]}
-            original={this.props.original[attr]}
-            key={attr}
-            attrkey={attr}
-          />
-        );
-      }
+      attrs.push(
+        <Attribute
+          parent={this.props.value}
+          value={this.props.value[attr]}
+          original={this.props.original[attr]}
+          key={attr}
+          attrkey={attr}
+        />
+      );
     }
 
     openHash = (<div className="attrChildren">
@@ -302,7 +298,7 @@ var StringAttribute = React.createClass({
       className = ' modified';
 
     if (!this.state.editing)
-      return <span onClick={this.setEditMode} className={className}>{this.props.value}</span>;
+      return <span onClick={this.setEditMode} className={className}>{this.props.value || '<empty>'}</span>;
 
     return <input className="attrInputValue" value={this.state.value} onChange={this.updateValue} onBlur={this.setValue} ref={input => this.input = input} onKeyDown={this.handleKeyDown} />;
   },

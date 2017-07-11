@@ -22,7 +22,7 @@ const field = [{
 {
   id: 'field.copy',
   template: {
-    'id': 'copy',
+    'id': 'fieldCopy',
     'type': 'field.copy',
     'params': {
       'fields': [],
@@ -42,7 +42,7 @@ const field = [{
 {
   id: 'field.evaluate',
   template: {
-    'id': 'evaluate',
+    'id': 'fieldEvaluate',
     'type': 'field.evaluate',
     'params': {
       'fields': [
@@ -58,7 +58,7 @@ const field = [{
 {
   id: 'field.flatten',
   template: {
-    'id': 'flatten',
+    'id': 'fieldFlatten',
     'type': 'field.flatten',
     'params': {
       'fields': [],
@@ -68,7 +68,7 @@ const field = [{
 {
   id: ' field.move',
   template: {
-    'id': 'move',
+    'id': 'fieldMove',
     'type': ' field.move',
     'params': {
       'fields': [],
@@ -79,7 +79,7 @@ const field = [{
 {
   id: ' field.remove',
   template: {
-    'id': 'remove',
+    'id': 'fieldRemove',
     'type': ' field.remove',
     'params': {
       'fields': [],
@@ -89,7 +89,7 @@ const field = [{
 {
   id: 'field.rename',
   template: {
-    'id': 'rename',
+    'id': 'fieldRename',
     'type': 'field.rename',
     'params': {
       'fields': [
@@ -104,7 +104,7 @@ const field = [{
 {
   id: 'field.replace',
   template: {
-    'id': 'replace',
+    'id': 'fieldReplace',
     'type': 'field.replace',
     'params': {
       'fields': [

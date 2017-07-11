@@ -2,7 +2,7 @@
 const record = [{
   id: 'record.evaluate',
   template: {
-    'id': 'evaluate',
+    'id': 'recordEvaluate',
     'type': 'record.evaluate',
     'params': {
       'script': '',

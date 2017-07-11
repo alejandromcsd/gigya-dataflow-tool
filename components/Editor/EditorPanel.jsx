@@ -39,14 +39,28 @@ class EditorPanel extends Component {
     }
   }
 
-  onTreeUpdate = (updatedFlow, activeStep) => {
+  onTreeUpdate = (updatedFlow) => {
+    const { onUpdateStep } = this.props;
+
     // TODO: Ideally we don't use local state here, instead redux
     // However we should refactor DocEditor before doing this.
     this.stepInit = updatedFlow.json;
     this.setState({
       frozen: updatedFlow,
     });
-    this.props.onUpdateStep(updatedFlow.json, activeStep);
+    onUpdateStep(updatedFlow.json);
+  };
+
+  onScriptUpdate = (base64Script) => {
+    const { activeStep, flow, onUpdateStep, onRequestChange } = this.props;
+    const updatedItem = {
+      ...flow.steps[activeStep],
+      params: {
+        script: base64Script,
+      },
+    };
+    onUpdateStep(updatedItem);
+    onRequestChange(false); // Close the editor panel
   };
 
   isScriptStep = currentItem => currentItem.type === 'record.evaluate'
@@ -82,14 +96,18 @@ class EditorPanel extends Component {
           <DocEditor
             store={frozen}
             original={frozen}
-            onUpdate={updatedFlow => this.onTreeUpdate(updatedFlow, activeStep)}
+            onUpdate={updatedFlow => this.onTreeUpdate(updatedFlow)}
             expanded
           />
         </div>
-        <ScriptEditor
-          isOpen={isScriptOpen}
-          onToogle={onToogleScript}
-        />
+        {this.isScriptStep(currentItem) &&
+          <ScriptEditor
+            isOpen={isScriptOpen}
+            onToogle={onToogleScript}
+            onSave={this.onScriptUpdate}
+            script={currentItem.params.script}
+          />
+        }
       </div>)
       : null;
   }
@@ -98,6 +116,7 @@ class EditorPanel extends Component {
 EditorPanel.propTypes = {
   isScriptOpen: PropTypes.bool.isRequired,
   onUpdateStep: PropTypes.func.isRequired,
+  onRequestChange: PropTypes.func.isRequired,
   onToogleScript: PropTypes.func.isRequired,
   activeStep: PropTypes.number,
   flow: CUSTOM_PROPS.FLOW.isRequired,

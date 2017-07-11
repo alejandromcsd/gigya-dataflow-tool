@@ -36,7 +36,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     onRequestChange: isOpen => dispatch(toggleEditor(null, isOpen)),
-    onUpdateStep: (updatedStep, stepIndex) => dispatch(updateStep(updatedStep, stepIndex)),
+    onUpdateStep: updatedStep => dispatch(updateStep(updatedStep)),
     onToogleScript: () => dispatch(toggleScriptEditor()),
   };
 }

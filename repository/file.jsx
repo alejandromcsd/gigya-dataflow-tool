@@ -26,7 +26,7 @@ const file = [{
 {
   id: 'file.empty',
   template: {
-    'id': 'empty',
+    'id': 'fieldEmpty',
     'type': 'file.empty',
     'params': {
       'fileName': '',

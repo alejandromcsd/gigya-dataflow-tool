@@ -2,7 +2,7 @@
 const datasource = [{
   id: 'datasource.lookup.gigya.gm',
   template: {
-    'id': 'gm',
+    'id': 'lookupGm',
     'type': 'datasource.lookup.gigya.gm',
     'params': {
       'includeChallenges': '*',

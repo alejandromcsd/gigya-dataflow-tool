@@ -38,6 +38,7 @@
     "clipboard": "^1.7.1",
     "codemirror": "^5.26.0",
     "fbjs": "^0.8.5",
+    "js-base64": "^2.1.9",
     "material-ui": "^0.16.0",
     "prop-types": "^15.5.10",
     "react": "^15.4.0",

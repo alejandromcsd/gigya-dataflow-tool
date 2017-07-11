@@ -12,6 +12,14 @@ export function deleteActiveStep() {
   return { type: actionTypes.DELETE_ACTIVE_STEP };
 }
 
+export function moveUpStep() {
+  return { type: actionTypes.MOVEUP_STEP };
+}
+
+export function moveDownStep() {
+  return { type: actionTypes.MOVEDOWN_STEP };
+}
+
 export function setActiveStep(index) {
   return { type: actionTypes.SET_ACTIVE_STEP, index };
 }

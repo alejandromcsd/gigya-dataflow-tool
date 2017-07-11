@@ -15,12 +15,22 @@ h2 {
 .noFlow {
   color: #555;
   margin: auto;
-  width: 400px;
+  max-width: 800px;
   margin-top: 60px;
 }
 
-.noFlow ol {
-  margin-bottom: -10px;
+.noFlow h3 {
+  text-align: center;
+}
+
+.noFlow .options {
+  display: table;
+}
+
+.noFlow .option {
+  display: table-cell;
+  width: 300px;
+  padding: 15px;
 }
 
 

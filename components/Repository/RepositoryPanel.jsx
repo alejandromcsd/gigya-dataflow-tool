@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Drawer from 'material-ui/Drawer';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
+import AutoComplete from 'material-ui/AutoComplete';
 import { List, ListItem } from 'material-ui/List';
 import AddCircle from 'material-ui/svg-icons/content/add-circle';
-import LaptopMac from 'material-ui/svg-icons/hardware/laptop-mac';
 import IconButton from 'material-ui/IconButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import datasource from '../../repository/datasource';
 import field from '../../repository/field';
 import file from '../../repository/file';
 import record from '../../repository/record';
-import GIGYA from '../../constants/Gigya';
 
 const styles = {
   drawer: {
@@ -27,15 +25,34 @@ const styles = {
   addButton: {
     marginTop: -5,
   },
-  helpButton: {
-    float: 'right',
-    marginTop: 7,
-    marginRight: 7,
+  autoComplete: {
+    container: {
+      paddingLeft: 10,
+      paddingBottom: 10,
+    },
+  },
+};
+
+const allSteps = {
+  dataSource: [
+    ...datasource,
+    ...field,
+    ...file,
+    ...record,
+  ],
+  dataSourceConfig: {
+    text: 'id',
+    value: 'template',
   },
 };
 
 class RepositoryPanel extends Component {
-  showDialog = () => window.open(GIGYA.DEV_URL);
+
+  handleAutoComplete = (selectedItem, index) => {
+    if (index >= 0) {
+      this.props.onAddScript(selectedItem.template);
+    }
+  };
 
   renderItems = items => (
     <div className="itemsContainer" style={styles.items}>
@@ -83,14 +100,14 @@ class RepositoryPanel extends Component {
         open={open}
         width={styles.drawer.width}
       >
-        <RaisedButton
-          label="Documentation"
-          icon={<LaptopMac />}
-          style={styles.helpButton}
-          onTouchTap={this.showDialog}
-          primary
+        <AutoComplete
+          floatingLabelText="Search in script repository"
+          filter={AutoComplete.caseInsensitiveFilter}
+          dataSource={allSteps.dataSource}
+          dataSourceConfig={allSteps.dataSourceConfig}
+          onNewRequest={this.handleAutoComplete}
+          style={styles.autoComplete.container}
         />
-        <h2>Scripts</h2>
         {this.renderCard('Datasource', datasource)}
         {this.renderCard('Field', field)}
         {this.renderCard('File', file)}
